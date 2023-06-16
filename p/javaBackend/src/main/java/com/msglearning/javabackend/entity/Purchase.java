@@ -1,6 +1,5 @@
 package com.msglearning.javabackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,7 +27,6 @@ public class Purchase {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
 
     @ManyToOne
