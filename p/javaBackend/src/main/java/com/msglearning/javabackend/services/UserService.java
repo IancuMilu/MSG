@@ -31,10 +31,21 @@ public class UserService {
     }
 
     public ResponseEntity<?> createUser(User user) {
+        if (user.getEmail() == null || user.getPassword() == null || user.getFirstName() == null) {
+            return ResponseEntity.badRequest().body(new ErrorResponse("Required fields are missing."));
+        }
+
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ErrorResponse("User with the same email already exists."));
+        }
+
+        try {
+            String hashedPassword = PasswordService.getSaltedHash(user.getPassword());
+            user.setPassword(hashedPassword);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Error occurred during password hashing."));
         }
 
         User createdUser = userRepository.save(user);
@@ -46,7 +57,9 @@ public class UserService {
     }
 
     public Optional<User> findByEmail(String email) {
-
-        return null;
+        return userRepository.findByEmail(email);
     }
 }
+
+
+

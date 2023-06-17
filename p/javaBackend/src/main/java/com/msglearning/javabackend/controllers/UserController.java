@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping({ ControllerConstants.API_PATH_USER })
+@RequestMapping(ControllerConstants.API_PATH_USER)
 public class UserController {
 
-    private static final String ALL_PATH = "/all";
     private static final String ID_PATH = "/id/{id}";
     private static final String EMAIL_PATH = "/email/{email}";
     private static final String NAME_PATH = "/name/{name}";
@@ -26,13 +25,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(ID_PATH)
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping(EMAIL_PATH)
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         Optional<User> user = userService.getUserByEmail(email);
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
@@ -43,13 +42,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseEntity<?>> createUser(@RequestBody User user) {
-        ResponseEntity<?> createdUser = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-    }
-
-    @DeleteMapping("/{id}")
+    @DeleteMapping(ID_PATH)
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }

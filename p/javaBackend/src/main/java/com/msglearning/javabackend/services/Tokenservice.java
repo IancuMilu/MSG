@@ -11,10 +11,8 @@ import java.util.Date;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Service
-public class Tokenservice {
+public class TokenService {
 
     private Logger LOG = LoggerFactory.getLogger(this.getClass().getName());
 
