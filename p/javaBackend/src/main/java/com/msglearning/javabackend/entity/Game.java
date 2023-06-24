@@ -45,6 +45,5 @@ public class Game {
 
     @OneToMany(mappedBy = "game")
     private List<GameGenre> gameGenres;
-
 }
 

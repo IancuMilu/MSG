@@ -5,7 +5,6 @@ import com.msglearning.javabackend.repositories.GenreRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +28,7 @@ public class GenreService {
     }
 
     public ResponseEntity<Genre> saveGenre(Genre genre) {
-        if (StringUtils.isEmpty(genre.getName())) {
+        if (genre.getName().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
 

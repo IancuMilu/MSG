@@ -4,8 +4,10 @@ import com.msglearning.javabackend.converters.GameConverter;
 import com.msglearning.javabackend.entity.Game;
 import com.msglearning.javabackend.entity.GameGenre;
 import com.msglearning.javabackend.entity.Genre;
+import com.msglearning.javabackend.entity.Purchase;
 import com.msglearning.javabackend.repositories.GameRepository;
 import com.msglearning.javabackend.repositories.GenreRepository;
+import com.msglearning.javabackend.repositories.PurchaseRepository;
 import com.msglearning.javabackend.to.GameTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,13 @@ public class GameService {
 
     private final GenreRepository genreRepository;
 
-    public GameService(GameRepository gameRepository, GameConverter gameConverter, GenreRepository genreRepository) {
+    private final PurchaseRepository purchaseRepository;
+
+    public GameService(GameRepository gameRepository, GameConverter gameConverter, GenreRepository genreRepository, PurchaseRepository purchaseRepository) {
         this.gameRepository = gameRepository;
         this.gameConverter = gameConverter;
         this.genreRepository = genreRepository;
+        this.purchaseRepository = purchaseRepository;
     }
 
     public List<GameTO> getAllGames() {
@@ -115,6 +120,11 @@ public class GameService {
 //    }
 
     public void deleteGame(Long id) {
+
+        List<Purchase> purchases = purchaseRepository.findByGameId(id);
+        for(Purchase purchase: purchases){
+            gameRepository.deleteById(purchase.getId());
+        }
         gameRepository.deleteById(id);
     }
 }

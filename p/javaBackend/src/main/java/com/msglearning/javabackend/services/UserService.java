@@ -1,32 +1,31 @@
 package com.msglearning.javabackend.services;
 
+import com.msglearning.javabackend.entity.Purchase;
 import com.msglearning.javabackend.entity.User;
 import com.msglearning.javabackend.errors.ErrorResponse;
+import com.msglearning.javabackend.repositories.PurchaseRepository;
 import com.msglearning.javabackend.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
 public class UserService {
 
-    @Autowired
     private final UserRepository userRepository;
+    private final PurchaseRepository purchaseRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PurchaseRepository purchaseRepository) {
 
         this.userRepository = userRepository;
+        this.purchaseRepository = purchaseRepository;
     }
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
-    }
-
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
     }
 
     public List<User> getAllUsers(){
@@ -56,12 +55,22 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
+        // Retrieve all purchases related to the user
+        List<Purchase> purchases = purchaseRepository.findByUserId(id);
+
+        // Delete all purchases related to the user
+        for (Purchase purchase : purchases) {
+            purchaseRepository.deleteById(purchase.getId());
+        }
+
+        // Delete the user
         userRepository.deleteById(id);
     }
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
 }
 
 

@@ -1,71 +1,66 @@
 package com.msglearning.javabackend.services;
 
-import com.msglearning.javabackend.converters.PurchaseConverter;
+import com.msglearning.javabackend.entity.Game;
 import com.msglearning.javabackend.entity.Purchase;
+import com.msglearning.javabackend.entity.User;
+import com.msglearning.javabackend.repositories.GameRepository;
 import com.msglearning.javabackend.repositories.PurchaseRepository;
-import com.msglearning.javabackend.to.PurchaseTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.msglearning.javabackend.repositories.UserRepository;
+import com.msglearning.javabackend.to.PurchaseRequest;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class PurchaseService {
 
-    @Autowired
-    PurchaseRepository purchaseRepository;
+    private final UserRepository userRepository;
+    private final GameRepository gameRepository;
+    private final PurchaseRepository purchaseRepository;
 
-    // Gets purchases by user ID
-    public ResponseEntity<List<PurchaseTO>> getPurchasesByUser(Long userId) {
-        List<Purchase> purchases = purchaseRepository.findByUserId(userId);
-        if (purchases.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        } else {
-            List<PurchaseTO> purchaseTOs = purchases.stream()
-                    .map(PurchaseConverter::toPurchaseTO)
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(purchaseTOs);
+    public PurchaseService(UserRepository userRepository, GameRepository gameRepository, PurchaseRepository purchaseRepository){
+        this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
+        this.purchaseRepository = purchaseRepository;
+    }
+
+    public List<Purchase> findAllPurchases() {
+        return purchaseRepository.findAll();
+    }
+
+    public List<Purchase> findPurchasesByUserId(Long userId) {
+        return purchaseRepository.findByUserId(userId);
+    }
+
+    public List<Purchase> createPurchase(PurchaseRequest request) {
+        Long userId = request.getUserId();
+        List<Long> gameIds = request.getGameIds();
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        if (gameIds == null || gameIds.isEmpty()) {
+            throw new IllegalArgumentException("No game IDs provided.");
         }
-    }
 
-    public ResponseEntity<List<PurchaseTO>> getAllPurchases() {
-        List<Purchase> purchases = purchaseRepository.findAll();
-        if (purchases.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        } else {
-            List<PurchaseTO> purchaseTOs = purchases.stream()
-                    .map(PurchaseConverter::toPurchaseTO)
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(purchaseTOs);
-        }
-    }
+        List<Game> games = gameRepository.findAllById(gameIds);
 
-    public ResponseEntity<Purchase> getPurchaseById(Long id) {
-        Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
-        return optionalPurchase.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
+        List<Purchase> purchases = new ArrayList<>();
+        // Create a new purchase for each game and save it to the Purchase repository
+        games.forEach(game -> {
+            Purchase purchase = Purchase.builder()
+                    .user(user)
+                    .game(game)
+                    .purchaseDate(LocalDate.now())
+                    .build();
+            purchases.add(purchaseRepository.save(purchase));
+        });
 
-    public ResponseEntity<Purchase> savePurchase(Purchase purchase) {
-        Purchase savedPurchase = purchaseRepository.save(purchase);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedPurchase);
-    }
-
-    public ResponseEntity<Purchase> updatePurchase(Long id, Purchase purchase) {
-        Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
-        if (optionalPurchase.isPresent()) {
-            Purchase existingPurchase = optionalPurchase.get();
-            // Update purchaseDate
-            existingPurchase.setPurchaseDate(purchase.getPurchaseDate());
-            Purchase updatedPurchase = purchaseRepository.save(existingPurchase);
-            return ResponseEntity.ok(updatedPurchase);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        // Returns the created purchases
+        return purchases;
     }
 
     public void deletePurchase(Long id) {
@@ -73,5 +68,16 @@ public class PurchaseService {
     }
 
 
+    public void updatePurchase(Long id, Purchase purchase) throws NotFoundException {
+        Purchase existingPurchase = purchaseRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Purchase not found with ID: " + id));
 
+        // Update the fields of the existing purchase with the new data from the request payload
+        existingPurchase.setUser(purchase.getUser());
+        existingPurchase.setGame(purchase.getGame());
+        existingPurchase.setPurchaseDate(purchase.getPurchaseDate());
+        // Update other fields as needed
+
+        purchaseRepository.save(existingPurchase);
+    }
 }

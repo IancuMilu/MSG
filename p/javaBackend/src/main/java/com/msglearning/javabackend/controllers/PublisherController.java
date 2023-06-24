@@ -40,7 +40,6 @@ public class PublisherController {
     public ResponseEntity<Publisher> updatePublisher(@PathVariable Long id, @RequestBody Publisher publisher) {
         return publisherService.updatePublisher(id, publisher);
     }
-
     @DeleteMapping(ID_PATH)
     public void deletePublisher(@PathVariable Long id) {
         publisherService.deletePublisher(id);

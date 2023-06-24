@@ -2,7 +2,6 @@ package com.msglearning.javabackend.controllers;
 
 import com.msglearning.javabackend.entity.Genre;
 import com.msglearning.javabackend.services.GenreService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,8 +40,8 @@ public class GenreController {
     }
 
     @DeleteMapping(ID_PATH)
-    public ResponseEntity<Void> deleteGenre(@PathVariable Long id) {
+    public ResponseEntity<String> deleteGenre(@PathVariable Long id) {
         genreService.deleteGenre(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body("Genre deleted successfully");
     }
 }
