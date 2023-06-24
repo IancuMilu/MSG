@@ -14,6 +14,8 @@ export class LoginComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
+  loading = false;
+  submitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +39,7 @@ export class LoginComponent {
       .login(this.f.email.value as string, this.f.password.value as string)
       .subscribe((result) => {
         if (result) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         }
       });
   }

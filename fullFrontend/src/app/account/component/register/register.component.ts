@@ -2,7 +2,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { AccountService } from '../services/account.service';
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-register',
@@ -15,8 +16,8 @@ export class RegisterComponent {
     lastName: ['', Validators.required],
     email: ['', Validators.required],
     password: ['', Validators.required],
-    genre: ['', Validators.required],
-    admin: ['', Validators.required]
+    gender: ['', Validators.required],
+    admin: ['']
   });
   loading = false;
   submitted = false;
@@ -40,19 +41,30 @@ export class RegisterComponent {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
+    // Stop here if the form is invalid
     if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
     this.accountService.register(this.form.value as any).subscribe({
+
       next: () => {
+        // Reset loading state and navigate to the login page on success
+        this.loading = false;
+        let mess = document.getElementById("success");
+        mess?.setAttribute("style","display:block");
+
         this.router.navigate(['/login'], { relativeTo: this.route });
+
       },
       error: (error) => {
+        // Handle the error and reset loading state
         this.loading = false;
+        // Add error handling logic here (e.g., display error message)
+        console.log("Loading error (register)");
       },
     });
   }
 }
+
