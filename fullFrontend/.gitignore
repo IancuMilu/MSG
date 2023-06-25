@@ -49,6 +49,8 @@ Thumbs.db
 /coverage/lcov-report
 /coverage-final.json
 
+/.angular/cache
+
 # Angular CLI configuration
 /.angular-cli.json
 /.angular-cli.json.*

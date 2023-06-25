@@ -8,12 +8,5 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class HomeComponent {
   constructor(private router: Router) {}
-
-  goToLibrary() {
-    this.router.navigate(['/library']);
-  }
-
-  goToStore() {
-    this.router.navigate(['/store']);
-  }
+  
 }

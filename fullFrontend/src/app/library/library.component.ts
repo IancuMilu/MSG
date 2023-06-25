@@ -45,12 +45,4 @@ export class LibraryComponent implements OnInit {
     );
   }
   
-
-  goToHome() {
-    this.router.navigate(['/home']);
-  }
-
-  goToStore() {
-    this.router.navigate(['/store']);
-  }
 }
