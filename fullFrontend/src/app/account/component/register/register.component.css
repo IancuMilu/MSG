@@ -68,6 +68,11 @@ a {
     display: none;
 }
 
+#passwordAlert{
+    display: none;
+    color: brown;
+}
+
 .custom-btn {
     background-color: #ffffff; /* Set your desired background color */
     color: #000000; /* Set your desired text color */

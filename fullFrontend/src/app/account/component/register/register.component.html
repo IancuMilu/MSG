@@ -1,96 +1,3 @@
-<!-- <div class="card">
-  <h4 class="card-header">Register</h4>
-  <div class="card-body">
-    <form [formGroup]="form" (submit)="onSubmit()">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input
-          type="text"
-          formControlName="firstName"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
-        />
-        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-          <div *ngIf="f.firstName.errors['required']">First Name is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input
-          type="text"
-          formControlName="lastName"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
-        />
-        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-          <div *ngIf="f.lastName.errors['required']">Last Name is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="text"
-          formControlName="email"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-        />
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors['required']">Email is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          formControlName="password"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-        />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors['required']">Password is required</div>
-          <div *ngIf="f.password.errors['minlength']">
-            Password is not valid (length should have at least 6 characters)
-          </div>
-        </div>
-      </div>
-          <div class="form-group">
-            <label for="genre">Genre</label>
-            <input
-              type="text"
-              formControlName="genre"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.genre.errors }"
-            />
-            <div *ngIf="submitted && f.genre.errors" class="invalid-feedback">
-              <div *ngIf="f.genre.errors['required']">Genre is required</div>
-            </div>
-          </div>
-      <div class="form-group">
-        <label for="admin">Admin</label>
-        <input
-          type="text"
-          formControlName="admin"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.admin.errors }"
-        />
-        <div *ngIf="submitted && f.admin.errors" class="invalid-feedback">
-          <div *ngIf="f.admin.errors['required']">Admin is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">
-          <span
-            *ngIf="loading"
-            class="spinner-border spinner-border-sm mr-1"
-          ></span>
-          Register
-        </button>
-        <a routerLink="../login" class="btn btn-link">Cancel</a>
-      </div>
-    </form>
-  </div>
-</div> -->
-
 <div class="grid align__item">
 
     <div class="register">
@@ -100,7 +7,7 @@
         <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form__field">
                 <input
-                        placeholder="John"
+                        placeholder="firstname"
                         type="firstname"
                         formControlName="firstName"
                         [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
@@ -112,7 +19,7 @@
 
             <div class="form__field">
                 <input
-                        placeholder="Doe"
+                        placeholder="lastname"
                         type="lastname"
                         formControlName="lastName"
                         [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
@@ -138,7 +45,7 @@
                 <input
                         type="password"
                         formControlName="password"
-                        placeholder="••••••••••••"
+                        placeholder="password"
                         [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                 />
                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
@@ -148,6 +55,26 @@
                     </div>
                 </div>
             </div>
+            <div class="form__field">
+                <input
+                        type="password"
+                        formControlName="confirmPassword"
+                        id="confirmPassword"
+                        placeholder="confirm password"
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                        required
+                />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors['required']">Confirm password is required</div>
+                    <div *ngIf="f.password.errors['minlength']">
+                        Password is not valid (length should have at least 6 characters)
+                    </div>
+                </div>
+
+                <div class=" form__field" role="alert" id="passwordAlert">
+                    <strong>The passwords must match!</strong>
+                </div>
+            </div>
 
             <div class="form__field">
                 <select
@@ -155,7 +82,7 @@
                         class="form-select form__field"
                         [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                 >
-                    <option selected>Select your gender:</option>
+                    <option value="" selected disabled hidden>Select your gender:</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
@@ -175,7 +102,7 @@
                 </button>
             </div>
 
-            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="success"  >
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="success">
                 <strong>Successful registration! </strong> You will be redirected to the login page.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
