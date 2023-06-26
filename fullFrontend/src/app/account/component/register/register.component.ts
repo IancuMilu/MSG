@@ -62,15 +62,15 @@ export class RegisterComponent {
             next: () => {
                 // Reset loading state and navigate to the login page on success
                 this.loading = false;
-                let mess = document.getElementById("success");
-                mess?.setAttribute("style", "display:inline");
-                this.router.navigate(['/login'], {relativeTo: this.route});
             },
             error: (error) => {
                 // Handle the error and reset loading state
                 this.loading = false;
                 // Add error handling logic here (e.g., display error message)
                 console.log("Loading error (register)");
+                let mess = document.getElementById("success");
+                mess?.setAttribute("style", "display:inline");
+                this.router.navigate(['/login'], {relativeTo: this.route});
             }
         });
     }
