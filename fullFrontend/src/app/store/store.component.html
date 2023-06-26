@@ -1,14 +1,7 @@
 <div class="card">
   <h4 class="card-header">Store</h4>
   <div class="card-body">
-    <p>Welcome to the Store page!</p>
-    <p>Please select an option:</p>
-    <div>
-      <button class="btn btn-primary" (click)="goToHome()">Go to Home</button>
-      <button class="btn btn-primary" (click)="goToLibrary()">Go to Library</button>
-    </div>
     <hr>
-    <h5>Available Games:</h5>
     <div class="game-grid">
       <div *ngFor="let game of games" class="game-item" (click)="viewGameDetails(game.id)">
         <div class="image-container">

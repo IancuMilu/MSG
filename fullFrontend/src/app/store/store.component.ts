@@ -32,14 +32,6 @@ export class StoreComponent implements OnInit {
     });
   }  
 
-  goToHome() {
-    this.router.navigate(['/home']);
-  }
-
-  goToLibrary() {
-    this.router.navigate(['/library']);
-  }
-
   viewGameDetails(gameId: number) {
     this.router.navigate(['/game', gameId]);
   }
