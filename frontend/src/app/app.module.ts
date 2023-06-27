@@ -45,5 +45,6 @@ import { CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
     ],
   providers: [GameService, AccountService],
   bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

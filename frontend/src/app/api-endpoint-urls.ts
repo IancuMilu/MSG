@@ -1,5 +1,5 @@
 export class APIEndpointURLs {
-  private static readonly baseUrl = 'http://localhost:8080/java-api/api';
+  public static readonly baseUrl = 'http://localhost:8080/java-api/api';
 
   // User
   public static readonly userUrl = APIEndpointURLs.baseUrl + '/user';
@@ -17,4 +17,7 @@ export class APIEndpointURLs {
   public static readonly userPurchases   = APIEndpointURLs.baseUrl + '/purchase/user/';
   public static readonly purchasedGame   = APIEndpointURLs.baseUrl + '/purchase';
   public static readonly getGameById   = APIEndpointURLs.baseUrl + '/game/';
+
+  //Rating
+  public static readonly rating = APIEndpointURLs.baseUrl + '/rating/'
 }
