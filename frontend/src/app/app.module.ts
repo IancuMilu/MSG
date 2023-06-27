@@ -16,6 +16,8 @@ import { GameService } from './game/game.service';
 import { AccountService } from './account/component/services/account.service';
 import {NgOptimizedImage} from "@angular/common";
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { RatingComponent } from './rating/rating.component';
+import { CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 
 
@@ -31,6 +33,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     StoreComponent,
     GameDetailsComponent,
     ShoppingCartComponent,
+    RatingComponent,
   ],
     imports: [
         BrowserModule,
