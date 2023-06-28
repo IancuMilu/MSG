@@ -1,0 +1,146 @@
+# Dependency directories
+/node_modules
+
+# Distribution directories
+/dist
+/dist-server
+/dist-browser
+
+# Build artifacts
+/dist/
+/dist-server/
+/dist-browser/
+/ngu-dist/
+
+# Environment files
+/src/environments/*.js
+/src/environments/*.js.map
+
+# Editor directories and files
+.idea
+.vscode
+*.sublime*
+*.swo
+*.swp
+*.bak
+Thumbs.db
+
+# Log files
+*.log
+
+# Compiled TypeScript files
+*.js
+*.js.map
+*.d.ts
+
+# Other generated files
+*.min.css
+*.min.js
+*.orig
+*.lock
+*.sqlite
+*.sqlite3
+
+# Testing files
+/coverage
+/.nyc_output
+/nyc_output
+/coverage.lcov
+/coverage/lcov-report
+/coverage-final.json
+
+/.angular/cache
+
+# Angular CLI configuration
+/.angular-cli.json
+/.angular-cli.json.*
+/.angular-config.json
+
+# Angular Universal
+/tsconfig.server.json
+
+# Jest
+/jest.config.js
+/jest.config.js.map
+
+# Cypress
+/cypress
+
+# Documentation
+/documentation
+
+# Deployment files
+/netlify.toml
+/now.json
+/firebase.json
+
+# Miscellaneous
+.DS_Store
+._*
+*.tmp
+*.swf
+*.fla
+*.gz
+*.zip
+*.tar.gz
+*.tgz
+*.gzip
+*.exe
+*.dll
+*.obj
+*.o
+*.a
+*.lib
+*.so
+*.dylib
+*.pdb
+*.idb
+*.pdb.lock
+*.ilk
+*.manifest
+*.exp
+*.sln.docstates
+*.suo
+*.cache
+*.log.*
+*.pyc
+*.pyo
+*.pyd
+*.rej
+*.bak
+*.orig
+*.min
+*.tmp
+*.tmp.*
+*.bak.*
+*.orig.*
+*.min.*
+*.zip.*
+*.tar.gz.*
+*.tgz.*
+*.gzip.*
+*.md5
+*.sha1
+*.m4v
+*.wmv
+*.avi
+*.wav
+*.mp3
+*.mov
+*.jpeg
+*.gif
+*.bmp
+*.ico
+*.pdf
+*.psd
+*.ai
+*.eps
+*.tif
+*.tiff
+*.doc
+*.rtf
+*.xls
+*.ppt
+*.swf
+*.fla
+*.txt

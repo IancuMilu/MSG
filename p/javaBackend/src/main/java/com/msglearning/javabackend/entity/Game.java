@@ -1,7 +1,6 @@
 package com.msglearning.javabackend.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Table(name = Game.TABLE_NAME)
@@ -26,16 +23,20 @@ public class Game {
     @Column
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "publisher_id")
-    @JsonIgnore
-    private Publisher publisher;
-
-    @Column
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Column
     private String description;
+
+    @Column
+    private String genres;
+
+    @Column(name = "publisher_name")
+    private String publisherName;
+
+    @Column
+    private Double price;
 
     @Column(name = "image_url")
     private String imageUrl;

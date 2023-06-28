@@ -1,0 +1,21 @@
+<div class="card">
+  <h4 class="card-header">Library</h4>
+  <div class="card-body">
+    <hr>
+    <h5>Your Games:</h5>
+    <div class="game-grid">
+      <div *ngFor="let purchasedGame of purchasedGames" class="game-item">
+        <div class="image-container">
+          <a [routerLink]="['/game', purchasedGame.game.id]">
+            <img class="game-image" [src]="purchasedGame.game.imageUrl" alt="Game Image">
+          </a>
+        </div>
+        <h6>{{ purchasedGame.game.name }}</h6>
+        <p>{{ purchasedGame.game.description }}</p>
+        <p>Publisher: {{ purchasedGame.game.publisherName }}</p>
+        <p>Genres: {{ purchasedGame.game.genres }}</p>
+        <p>Purchase Date: {{ purchasedGame.purchaseDate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

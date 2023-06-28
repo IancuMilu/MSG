@@ -10,5 +10,7 @@ import java.util.Optional;
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, Long> {
     List<Rating> findByGameId(Long gameId);
+
+    List<Rating> findByUserId(Long userId);
     Optional<Rating> findByGameIdAndUserId(Long gameId, Long userId);
 }

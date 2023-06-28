@@ -1,0 +1,58 @@
+.cart-grid {
+    padding-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-items-wrapper {
+    padding-left: 20px;
+    width: 70%; /* adjust as needed */
+    margin-right: 10px;
+}
+
+.cart-summary {
+    width: 30%; /* adjust as needed */
+}
+
+.cart-image {
+    width: 60px; /* Adjust as needed */
+    height: auto;
+}
+
+.item-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.cart-item-content {
+    display: flex;
+    align-items: center;
+}
+
+.cart-item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left:10px;
+}
+
+.delete-icon {
+    align-items: end;
+    width: 30px;
+    cursor: pointer;
+    right: auto;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+}

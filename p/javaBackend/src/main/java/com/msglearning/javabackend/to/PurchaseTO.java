@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class PurchaseTO implements Serializable {
 
     private Long id;
-    private Long userId;
-    private Long gameId;
+    private String gameName;
+    private String userName;
     private LocalDate purchaseDate;
 }

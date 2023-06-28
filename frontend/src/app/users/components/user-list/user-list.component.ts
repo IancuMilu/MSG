@@ -9,10 +9,10 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent {
-  users$: Observable<User[]>;
+  user$: Observable<User[]>;
 
   constructor(private userService: UserService) {
-    this.users$ = this.userService.getAllUsers();
+    this.user$ = this.userService.getAllUsers();
 
     //this.users$.pipe(tap((users) => console.log(users))); //.subscribe();
 

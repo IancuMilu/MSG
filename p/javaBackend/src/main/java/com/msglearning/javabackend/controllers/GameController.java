@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(ControllerConstants.API_PATH_GAME)
@@ -35,16 +34,19 @@ public class GameController {
         if (gameService.existsGameByName(game.getName())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
+
+
         return gameService.saveGame(game);
     }
 
     @PutMapping(ID_PATH)
-    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
-        return gameService.updateGame(id, game);
+    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game newGame) {
+        return gameService.updateGame(id, newGame);
     }
 
     @DeleteMapping(ID_PATH)
-    public void deleteGame(@PathVariable Long id) {
-        gameService.deleteGame(id);
+    public ResponseEntity<String> deleteGame(@PathVariable Long id) throws Exception {
+        String response = gameService.deleteGame(id);
+        return ResponseEntity.ok(response);
     }
 }

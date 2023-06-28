@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="card-body">
+    <hr>
+    <div class="game-grid">
+      <div *ngFor="let game of games" class="game-item">
+        <div class="game-details">
+          <div class="image-container">
+            <a [routerLink]="['/game', game.id]" (click)="viewGameDetails(game.id)">
+              <img class="game-image" [src]="game.imageUrl" alt="Game Image">
+            </a>
+          </div>
+          <div class="game-info">
+            <h6>{{ game.name }}</h6>
+            <p>{{ game.publisherName }}</p>
+            <p>Price: {{ game.price }}</p>
+          </div>
+          <div class="add-to-cart">
+            <button *ngIf="!isInCart(game.id)" class="add-to-cart-button" (click)="addToCart(game)" title="Add to Cart">
+              <img ngSrc="./assets/add_cart.png" alt="Add to Cart" height="512" width="512">
+            </button>
+            <button *ngIf="isAdminUser$ | async" class="delete-game-button" (click)="deleteGame(game)" title="Delete Game">
+              <img ngSrc="./assets/delete.png" alt="Add to Cart" height="512" width="512">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button *ngIf="isAdminUser$ | async" class="add-game-button" (click)="openAddGameForm()">Add Game</button>
+
+    <div *ngIf="showAddGameForm" class="add-game-form">
+      <form (ngSubmit)="addGame()">
+
+        <div>
+          <label for="name">Name:</label>
+          <div class="input-container">
+            <input type="text" id="name" name="name" [(ngModel)]="newGame.name">
+          </div>
+        </div>
+
+        <div>
+          <label for="publisherName">Publisher name:</label>
+          <div class="input-container">
+            <input type="text" id="publisherName" name="publisherName" [(ngModel)]="newGame.publisherName">
+          </div>
+        </div>
+
+        <div>
+          <label for="description">Description:</label>
+          <div class="input-container">
+            <input type="text" id="description" name="description" [(ngModel)]="newGame.description">
+          </div>
+        </div>
+
+        <div>
+          <label for="imageUrl">Image URL:</label>
+          <div class="input-container">
+            <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="newGame.imageUrl">
+          </div>
+        </div>
+
+        <div>
+          <label for="publishDate">Publish Date:</label>
+          <div class="input-container">
+            <input type="date" id="publishDate" name="publishDate" [(ngModel)]="newGame.publishDate">
+          </div>
+        </div>
+
+        <div>
+          <label for="genres">Genres:</label>
+          <div class="input-container">
+            <input type="text" id="genres" name="genres" [(ngModel)]="newGame.genres">
+          </div>
+        </div>
+
+        <div>
+          <label for="price">Price:</label>
+          <div class="input-container">
+            <input type="number" id="price" name="price" [(ngModel)]="newGame.price" placeholder="Enter price">
+          </div>
+        </div>
+
+
+        <button type="submit">Submit</button>
+        <button type="button" (click)="closeAddGameForm()">Cancel</button>
+      </form>
+    </div>
+
+  </div>
+</div>

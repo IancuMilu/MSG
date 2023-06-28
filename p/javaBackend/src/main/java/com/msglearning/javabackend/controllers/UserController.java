@@ -2,8 +2,6 @@ package com.msglearning.javabackend.controllers;
 
 import com.msglearning.javabackend.entity.User;
 import com.msglearning.javabackend.services.UserService;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping({ ControllerConstants.API_PATH_USER })
+@RequestMapping(ControllerConstants.API_PATH_USER)
 public class UserController {
 
-    private static final String ALL_PATH = "/all";
-    private static final String ID_PATH = "/id/{id}";
+    private static final String ID_PATH = "/{id}";
     private static final String EMAIL_PATH = "/email/{email}";
-    private static final String NAME_PATH = "/name/{name}";
-    private static final String PROFILE_IMAGE = "/image/{id}";
 
     private final UserService userService;
 
@@ -26,13 +21,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(ID_PATH)
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/email/{email}")
+    //TODO
+    @GetMapping(EMAIL_PATH)
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         Optional<User> user = userService.getUserByEmail(email);
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
@@ -43,14 +39,14 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseEntity<?>> createUser(@RequestBody User user) {
-        ResponseEntity<?> createdUser = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newUser) {
+        return userService.updateUser(id, newUser);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    @DeleteMapping(ID_PATH)
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        String response = userService.deleteUser(id);
+        return ResponseEntity.ok(response);
     }
 }

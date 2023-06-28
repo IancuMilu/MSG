@@ -1,0 +1,19 @@
+<div class="card">
+  <h4 class="card-header">Game Details</h4>
+  <div class="card-body">
+    <div class="content-container">
+      <div *ngIf="game">
+        <h5>{{ game.name }}</h5>
+        <p>{{ game.description }}</p>
+        <img class="game-image" [src]="game.imageUrl" alt="Game Image">
+        <p>Publish Date: {{ game.publishDate }}</p>
+        <p>Genres: {{ game.genres }}</p>
+        <p>Publisher: {{ game.publisherName }}</p>
+        <p>Price: {{ game.price }}</p>
+      </div>
+      <div *ngIf="!game" class="loading-container">
+        <p>Loading game details...</p>
+      </div>
+    </div>
+  </div>
+</div>

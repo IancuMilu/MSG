@@ -1,10 +1,9 @@
 ﻿import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { APIEndpointURLs } from '../../../api-endpoint-urls';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import {catchError, Observable, of, Subject} from 'rxjs';
 import { User } from '../../../users/models/user.model';
 import { map } from 'rxjs/operators';
 
@@ -14,7 +13,9 @@ export class AccountService {
 
   private readonly TOKEN = 'token';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient,
+              private router: Router
+  ) {
     const token = localStorage.getItem(this.TOKEN);
     if (token) {
       const jwt = new JwtHelperService();
@@ -32,7 +33,6 @@ export class AccountService {
         const result = response[this.TOKEN];
         if (result) {
           localStorage.setItem(this.TOKEN, result);
-
           // const jwt = new JwtHelperService();
           // const tempUser: User = jwt.decodeToken(localStorage.getItem(this.TOKEN));
           // console.log('tempUser: ', tempUser);
@@ -43,6 +43,8 @@ export class AccountService {
           // }
           //
           // this.currentUser.next(tempUser);
+
+          console.log('Token:', result); // Log the token in the console
           return true;
         } else {
           return false;
@@ -50,6 +52,21 @@ export class AccountService {
       })
     );
   }
+
+  getUserId(): string | null {
+  console.log('getUserId running...');
+  const token = localStorage.getItem(this.TOKEN);
+  if (token) {
+    const jwtHelper = new JwtHelperService();
+    const decodedToken = jwtHelper.decodeToken(token);
+    console.log('Decoded Token:', decodedToken); // Log the decoded token object
+    if (decodedToken && decodedToken.jti) { // Access the user ID from the 'jti' property
+      console.log('User ID:', decodedToken.jti); // Log the user ID
+      return decodedToken.jti; // Return the user ID
+    }
+  }
+  return null;
+}
 
   logout() {
     localStorage.removeItem(this.TOKEN);
@@ -69,5 +86,20 @@ export class AccountService {
 
   getToken(): string {
     return localStorage.getItem(this.TOKEN) as string;
+  }
+
+  getUserById(userId: string): Observable<User> {
+    const url = `${APIEndpointURLs.userUrl}/${userId}`;
+    return this.http.get<User>(url);
+  }
+
+  isAdminUser(): Observable<boolean> {
+    const userId = this.getUserId();
+    if (userId) {
+      return this.getUserById(userId).pipe(
+          map((user: User) => user.admin)
+      );
+    }
+    return of(false);
   }
 }

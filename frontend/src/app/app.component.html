@@ -1,5 +1,50 @@
-<h1>Hello Summer Practice 2023</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<button (click)="logout()">Log out</button>
+  <meta charset="UTF-8">
+  <title>Daily UI | #001 - Sign Up</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+</head>
+<body class="align">
+  <!--Custom Scroll Bar -->
+  <div class="progress">
+    <div class="progress-bar" id="scroll-bar"></div>
+  </div>
+    <!--Header -->
+    <header>
+      <!--Nav -->
+      <div class="nav container">
+          <!--Logo -->
+          <a href="index.html" class="logo">Alpha<span>Games</span></a>
+          <!--Nav Icons -->
+          <div class="nav-icons">
+              <i *ngIf="this.accountService.isLoggedIn()" class='bx bx-bell bx-tada' id="bell-icon"><span></span></i>
+              <button *ngIf="!this.accountService.isLoggedIn()" class="btn signInButton" (click)=redirectToRegister() > Sign up </button>
+              <button *ngIf="!this.accountService.isLoggedIn()" class="btn signInButton logInButton" (click)=redirectToLogin()> Log in </button>
+          </div>
+
+          <div class="menu-icon" (click)="toggleMenu()">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+<!--              <div class="line4"></div>-->
+          </div>
+      </div>
+      <!--Menu -->
+      <div class="menu">
+          <img src="./assets/menu.png" alt="">
+          <div class="navbar">
+              <li><a (click)="goToPage('home')">Home</a></li>
+              <li><a (click)="goToPage('store')">Store</a></li>
+<!--              <li><a (click)="goToPage('new')">New Games</a></li>-->
+              <li><a (click)="goToPage('cart')">Shopping Cart</a></li>
+              <li *ngIf="this.accountService.isLoggedIn()"><a (click)="goToPage('library')">Library</a></li>
+              <li *ngIf="this.accountService.isLoggedIn()"><a (click)="logout()">Log Out</a></li>
+          </div>
+      </div>
+  </header>
 <router-outlet></router-outlet>
+</body>

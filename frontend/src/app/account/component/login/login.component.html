@@ -1,23 +1,48 @@
-<div class="card">
-  <h4 class="card-header">Login</h4>
-  <div class="card-body">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          formControlName="password"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <button [disabled]="!form.valid" class="btn btn-primary">Login</button>
-        <a routerLink="../register" class="btn btn-link">Register</a>
-      </div>
-    </form>
-  </div>
+<div class="grid align__item">
+
+    <div class="login" >
+
+        <img src="/assets/logo6.svg" alt="LOGO" class="site__logo">
+
+        <h2>Log in</h2>
+
+        <form class="form" [formGroup]="form" (submit)="onSubmit()">
+
+            <div class="form__field">
+                <input
+                        type="email"
+                        formControlName="email"
+                        placeholder="info@mailaddress.com"
+                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors['required']">Email is required</div>
+                </div>
+            </div>
+
+            <div class="form__field">
+                <input
+                        type="password"
+                        formControlName="password"
+                        placeholder="••••••••••••"
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors['required']">Password is required</div>
+                    <div *ngIf="f.password.errors['minlength']">
+                        Password is not valid (length should have at least 6 characters)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__field">
+                <button [disabled]="!form.valid" class="btn btn-primary custom-btn">Login</button>
+            </div>
+
+        </form>
+
+        <p>You don't have an account? <a href="/register">Sign up</a></p>
+
+    </div>
+
 </div>

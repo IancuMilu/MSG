@@ -40,13 +40,13 @@ public class ImageService {
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File(absolutePath));
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        assert img != null;
         ImageIO.write(img, "jpg", baos);
-        byte[] bytes = baos.toByteArray();
-        return bytes;
+        return baos.toByteArray();
     }
 
 

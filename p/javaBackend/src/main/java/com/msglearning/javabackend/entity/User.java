@@ -6,9 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Data
 @Table(name = User.TABLE_NAME)
@@ -41,4 +38,9 @@ public class User {
 
     @Column
     private boolean admin;
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
 }
