@@ -49,10 +49,59 @@
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
 }
 
 .game-info {
     display: flex;
     flex-direction: column;
+}
+
+.details_form {
+    background-color: #ffffff;
+    border: 5px solid #F35F40;
+    text-align: center;
+    padding: 2rem 1rem;
+    height: auto;
+    width: 350px;
+    border-radius: 25px;
+    margin-top: 50px;
+    align-items: center;
+}
+
+.details_form input, select {
+    border: 1px solid #242c37;
+    border-radius: 999px;
+    background-color: transparent;
+    text-align: center;
+    width: 100%;
+}
+
+label{
+    color: black;
+    margin-bottom: unset;
+}
+
+h4 {
+    font-size: 2.75rem;
+    font-weight: 100;
+    margin-bottom: 30px;
+    color: #1b182b;
+}
+
+.custom-btn {
+    margin-top: 30px;
+    background-color: #ffffff; /* Set your desired background color */
+    color: #000000; /* Set your desired text color */
+    border: 1px solid #242c37;
+    border-radius: 999px;
+    text-align: center;
+
+}
+
+.custom-btn:hover,
+.custom-btn:focus,
+.custom-btn:active {
+    background-color: #dc5347; /* Set the same background color as default */
+    color: #ffffff; /* Set the same text color as default */
+    outline: none; /* Remove the default focus outline */
 }

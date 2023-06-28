@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="cart-summary">
+        <div class="details_form">
             <h4>Total: {{ getTotal() | currency }}</h4>
             <form #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)">
                 <div class="form-group">
@@ -42,7 +42,7 @@
                     <input type="tel" id="phone" name="phone" required [(ngModel)]="phone">
                 </div>
 
-                <button type="submit" [disabled]="!checkoutForm.valid" class="checkout-btn">Checkout</button>
+                <button type="submit" [disabled]="!checkoutForm.valid" class="btn checkout-btn custom-btn">Checkout</button>
             </form>
         </div>
 
